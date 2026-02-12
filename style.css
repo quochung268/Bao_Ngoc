@@ -1,0 +1,270 @@
+:root {
+  --bg: #ffd6e8;
+  --pink2: #ffb6d9;
+  --accent: #ff3f87;
+  --letter-w: 640px;
+}
+
+/* reset */
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  font-family:
+    "Poppins",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Arial;
+  color: #222;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+/* common scene */
+.screen {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  gap: 12px;
+}
+.hidden {
+  display: none;
+}
+
+/* curved title */
+.curved-text {
+  width: 90%;
+  max-width: 900px;
+  height: 160px;
+}
+.curved-text text {
+  fill: var(--accent);
+  font-weight: 700;
+  font-size: 24px;
+}
+
+/* hint blinking (screen1) */
+.hint {
+  color: var(--accent);
+  font-size: 20px;
+  font-weight: 600;
+  animation: hintBlink 1.2s infinite;
+  margin-bottom: 6px;
+}
+@keyframes hintBlink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* rose appearance + hover */
+.rose {
+  width: min(240px, 46vw);
+  cursor: pointer;
+  display: block;
+  opacity: 0;
+  transform: scale(0.9);
+  animation: roseAppear 900ms ease forwards;
+}
+@keyframes roseAppear {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.rose:hover {
+  transform: scale(1.05);
+  transition: transform 0.18s;
+}
+
+/* envelope centered (absolute center of viewport), larger */
+#envelope {
+  width: min(520px, 86vw);
+  height: 360px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+#envelope-bottom {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  background: var(--pink2);
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.18);
+}
+
+/* letter centered and hidden inside envelope; .show slides it up to overlay envelope */
+#letter {
+  width: min(var(--letter-w), 94vw);
+  max-width: 860px;
+  background: #fff;
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.18);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 12%) scale(0.98); /* slightly below center initially */
+  opacity: 0;
+  z-index: 3; /* above envelope when shown */
+  transition:
+    transform 900ms cubic-bezier(0.2, 0.9, 0.3, 1),
+    opacity 500ms ease;
+}
+#letter.show {
+  opacity: 1;
+  transform: translate(-50%, -66%) scale(1); /* slide up to overlay envelope */
+}
+
+/* letter layout */
+.letter-body {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+#lover {
+  width: 220px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.text-block {
+  flex: 1;
+  text-align: left;
+}
+#title {
+  margin: 0 0 10px 0;
+  font-size: 22px;
+  color: var(--accent);
+  min-height: 28px;
+}
+#content {
+  margin: 0;
+  white-space: pre-wrap;
+  line-height: 1.45;
+  color: #333;
+}
+
+/* boom hearts */
+.boom-heart {
+  position: fixed;
+  font-size: 28px;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* lover blinking attractor (will be toggled by JS) */
+.lover-blink {
+  animation: loverBlink 1s infinite;
+}
+@keyframes loverBlink {
+  0% {
+    filter: brightness(1);
+    opacity: 1;
+  }
+  50% {
+    filter: brightness(0.7);
+    opacity: 0.5;
+  }
+  100% {
+    filter: brightness(1);
+    opacity: 1;
+  }
+}
+
+/* responsive */
+@media (max-width: 720px) {
+  #lover {
+    width: 160px;
+  }
+  #letter {
+    padding: 18px;
+  }
+  #envelope {
+    height: 300px;
+  }
+  .curved-text text {
+    font-size: 18px;
+  }
+}
+/* REPLACE or ADD this for boom hearts so they are visible and pretty */
+.boom-heart {
+  position: fixed;
+  pointer-events: none;
+  will-change: transform, opacity;
+  z-index: 9999; /* luôn trên cùng */
+  font-size: 30px; /* mặc định lớn hơn */
+  text-shadow: 0 6px 14px rgba(255, 100, 160, 0.35);
+  transform-origin: center;
+  transition: transform 200ms linear;
+  -webkit-font-smoothing: antialiased;
+}
+/* nhấp nháy nhẹ cho hoa */
+.blink-rose {
+  animation: blinkRose 1.2s infinite ease-in-out;
+}
+
+@keyframes blinkRose {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* you can also add small color variations via filter (optional) */
+.boom-heart.v2 {
+  filter: drop-shadow(0 4px 6px rgba(255, 120, 160, 0.18));
+}
+/* nhấp nháy nhẹ cho hoa */
+.blink-rose {
+  animation: blinkRose 1.2s infinite ease-in-out;
+}
+
+@keyframes blinkRose {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

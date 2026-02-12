@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Valentine - Tặng Em</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- optional background music -->
+    <audio id="bgm" src="music.m4a"></audio>
+
+    <!-- SCREEN 1: rose + curved text + blinking hint -->
+    <section id="screen1" class="screen">
+      <svg
+        class="curved-text"
+        viewBox="0 0 900 200"
+        preserveAspectRatio="xMidYMid meet"
+      >
+        <path
+          id="arc"
+          d="M50,120 A400,140 0 0,1 850,120"
+          fill="transparent"
+        ></path>
+        <text>
+          <textPath href="#arc" startOffset="50%" text-anchor="middle">
+            Gửi tặng em ngày Valentine
+          </textPath>
+        </text>
+      </svg>
+
+      <div id="hint" class="hint">Hãy nhấn vào đây</div>
+      <img id="rose" class="rose" src="rose.png" alt="rose" />
+    </section>
+
+    <!-- SCREEN 2: envelope centered + letter overlays -->
+    <section id="screen2" class="screen hidden">
+      <!-- envelope centered absolutely -->
+      <div id="envelope" aria-hidden="true">
+        <div id="envelope-bottom"></div>
+      </div>
+
+      <!-- letter sits centered and will slide up to overlay envelope -->
+      <article id="letter" aria-live="polite">
+        <div class="letter-body">
+          <img id="lover" src="Bao_Ngoc.jpg" alt="Ảnh em" />
+          <div class="text-block">
+            <h2 id="title"></h2>
+            <p id="content"></p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <script src="script.js"></script>
+  </body>
+</html>
